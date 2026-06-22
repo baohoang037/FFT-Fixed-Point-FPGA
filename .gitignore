@@ -1,0 +1,11 @@
+test_vectors/
+expected_output/
+sim/
+*.hex
+*.pb
+*.jou
+*.dcp
+*.bit
+__pycache__/
+*.pyc
+.Xil/
