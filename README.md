@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # Fixed-Point Radix-2 FFT — Bit-Width Trade-off Study (NCKH)
 
 Đề tài: **Evaluating Bit-Width Trade-offs for Fixed-Point Radix-2 FFT on FPGA**
@@ -75,3 +76,7 @@ FFT, là động lực cho block-floating-point (bàn trong phần thảo luận
 
 > Mình không chạy được Vivado trong môi trường này, nên phần PPA là số ước lượng có
 > nhãn rõ ràng; còn golden model + RTL + kiểm chứng SQNR là số liệu thật đã verify.
+=======
+# FFT-Fixed-Point-FPGA
+Evaluating Bit-Width Trade-offs for Fixed-Point Radix-2 FFT on FPGA
+>>>>>>> d5c236bde08903fc71784d8b323cac4b53ede2c6
