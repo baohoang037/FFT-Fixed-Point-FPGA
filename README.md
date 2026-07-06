@@ -8,7 +8,7 @@ A research project carried out as part of the NCKH undergraduate research progra
 
 ## System Overview
 
-![System Block Diagram](docs/fft_block_diagram.svg)
+![System Block Diagram](docs/fft_block_diagram.png)
 
 The overall flow is split into two sides:
 
@@ -76,7 +76,7 @@ FFT-Fixed-Point-FPGA/
 
 ### `complex_mult.v`
 
-![complex_mult block diagram](docs/module_complex_mult.svg)
+![complex_mult block diagram](docs/module_complex_mult.png)
 
 Computes the twiddle rotation **t = W_N^k · b**, where the twiddle factor is `cr + j·ci = cos − j·sin`. One extra integer bit is kept in the output to avoid premature saturation when the complex operand magnitude exceeds 1.0. At W ≥ 12 Vivado maps the multiplications to DSP48E1 blocks; at W < 12 LUT-based multipliers are used instead.
 
@@ -93,7 +93,7 @@ Computes the twiddle rotation **t = W_N^k · b**, where the twiddle factor is `c
 
 ### `butterfly.v`
 
-![butterfly block diagram](docs/module_butterfly.svg)
+![butterfly block diagram](docs/module_butterfly.png)
 
 Performs one Radix-2 DIT butterfly step. The arithmetic right shift by 1 (round-half-up ÷2) applied after each stage prevents overflow from propagating through all 10 stages. After log₂(1024) = 10 stages the output represents DFT{x}/N. This module is fully combinational — no clock port.
 
@@ -114,7 +114,7 @@ Performs one Radix-2 DIT butterfly step. The arithmetic right shift by 1 (round-
 
 ### `twiddle_rom.v`
 
-![twiddle_rom block diagram](docs/module_twiddle_rom.svg)
+![twiddle_rom block diagram](docs/module_twiddle_rom.png)
 
 Stores 512 entries of cos(2πk/N) and sin(2πk/N) in Q1.(TW−1) format. Contents are loaded at simulation startup via `$readmemh`. The `rom_style = "block"` attribute directs Vivado to map the ROM to a RAMB18E1 block.
 
@@ -129,7 +129,7 @@ Stores 512 entries of cos(2πk/N) and sin(2πk/N) in Q1.(TW−1) format. Content
 
 ### `tdp_ram.v` (instantiated as `u_ram_r` and `u_ram_i`)
 
-![tdp_ram block diagram](docs/module_tdp_ram.svg)
+![tdp_ram block diagram](docs/module_tdp_ram.png)
 
 True dual-port synchronous RAM with 1024 × W-bit storage. Instantiated twice inside `fft_top.v` — one for the real part array and one for the imaginary part. The two independent port `always` blocks follow the standard Xilinx template that enables RAMB18E1 inference. Without this structure, early versions of the code caused Vivado to dissolve the RAM into ~2000 individual flip-flops, making synthesis take over 30 minutes.
 
@@ -149,7 +149,7 @@ True dual-port synchronous RAM with 1024 × W-bit storage. Instantiated twice in
 
 ### `fft_top.v`
 
-![fft_top block diagram](docs/module_fft_top.svg)
+![fft_top block diagram](docs/module_fft_top.png)
 
 Top-level module that wires together all sub-modules and drives a multi-state FSM. A single shared butterfly is reused across all N/2 × log₂(N) = 5120 operations, keeping area small. The `rd_addr` / `rd_data_r` / `rd_data_i` read-out port allows the host to scan out results after `done` goes high — and also ensures Vivado cannot optimize away the entire datapath during synthesis (a module with no observable output ports would have its internal logic stripped).
 
