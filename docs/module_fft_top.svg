@@ -1,0 +1,111 @@
+<svg viewBox="0 0 680 520" xmlns="http://www.w3.org/2000/svg" font-family="Arial, sans-serif" font-size="12">
+  <rect width="680" height="520" fill="white"/>
+
+  <text x="340" y="26" text-anchor="middle" font-size="15" font-weight="bold" fill="#111">fft_top.v</text>
+  <text x="340" y="43" text-anchor="middle" font-size="11" fill="#555">Top-Level FFT Controller — Memory-Based FSM, N=1024, single shared butterfly</text>
+
+  <!-- Outer box -->
+  <rect x="14" y="55" width="480" height="400" rx="6" fill="white" stroke="black" stroke-width="2.5"/>
+  <text x="254" y="74" text-anchor="middle" font-size="11" font-weight="bold" fill="#111">fft_top  #(DW, TW, N, AW)</text>
+  <line x1="24" y1="80" x2="484" y2="80" stroke="#ccc"/>
+
+  <!-- Sub-modules inside fft_top -->
+  <!-- tdp_ram_r -->
+  <rect x="30" y="88" width="130" height="40" rx="3" fill="white" stroke="black" stroke-width="1.5"/>
+  <text x="95" y="105" text-anchor="middle" font-size="10" font-weight="bold" fill="#111">u_ram_r</text>
+  <text x="95" y="120" text-anchor="middle" font-size="9" fill="#555">tdp_ram (real)</text>
+
+  <!-- tdp_ram_i -->
+  <rect x="30" y="140" width="130" height="40" rx="3" fill="white" stroke="black" stroke-width="1.5"/>
+  <text x="95" y="157" text-anchor="middle" font-size="10" font-weight="bold" fill="#111">u_ram_i</text>
+  <text x="95" y="172" text-anchor="middle" font-size="9" fill="#555">tdp_ram (imag)</text>
+
+  <!-- twiddle_rom -->
+  <rect x="30" y="196" width="130" height="40" rx="3" fill="white" stroke="black" stroke-width="1.5"/>
+  <text x="95" y="213" text-anchor="middle" font-size="10" font-weight="bold" fill="#111">twiddle_rom</text>
+  <text x="95" y="228" text-anchor="middle" font-size="9" fill="#555">cosm / sinm</text>
+
+  <!-- butterfly -->
+  <rect x="30" y="250" width="130" height="40" rx="3" fill="white" stroke="black" stroke-width="1.5"/>
+  <text x="95" y="267" text-anchor="middle" font-size="10" font-weight="bold" fill="#111">u_bf : butterfly</text>
+  <text x="95" y="282" text-anchor="middle" font-size="9" fill="#555">→ complex_mult inside</text>
+
+  <!-- FSM states box -->
+  <rect x="195" y="88" width="285" height="355" rx="5" fill="white" stroke="#555" stroke-width="1.5"/>
+  <text x="337" y="106" text-anchor="middle" font-size="11" font-weight="bold" fill="#111">FSM States</text>
+  <line x1="205" y1="112" x2="470" y2="112" stroke="#ccc"/>
+
+  <!-- State boxes -->
+  <rect x="215" y="118" width="240" height="24" rx="3" fill="white" stroke="#333" stroke-width="1"/>
+  <text x="335" y="134" text-anchor="middle" font-size="10" fill="#111">S_IDLE — wait for start; rd_addr on port B</text>
+
+  <rect x="215" y="148" width="240" height="24" rx="3" fill="white" stroke="#333" stroke-width="1"/>
+  <text x="335" y="164" text-anchor="middle" font-size="10" fill="#111">S_BR_ISSUE — drive bit-reversal read addr</text>
+
+  <rect x="215" y="178" width="240" height="24" rx="3" fill="white" stroke="#333" stroke-width="1"/>
+  <text x="335" y="194" text-anchor="middle" font-size="10" fill="#111">S_BR_WAIT — wait 1 cycle (RAM latency)</text>
+
+  <rect x="215" y="208" width="240" height="24" rx="3" fill="white" stroke="#333" stroke-width="1"/>
+  <text x="335" y="224" text-anchor="middle" font-size="10" fill="#111">S_BR_APPLY — write swapped pair back</text>
+
+  <rect x="215" y="238" width="240" height="24" rx="3" fill="white" stroke="#333" stroke-width="1"/>
+  <text x="335" y="254" text-anchor="middle" font-size="10" fill="#111">S_BF_ISSUE — drive BF read addr + tidx</text>
+
+  <rect x="215" y="268" width="240" height="24" rx="3" fill="white" stroke="#333" stroke-width="1"/>
+  <text x="335" y="284" text-anchor="middle" font-size="10" fill="#111">S_BF_WAIT — wait 1 cycle (RAM + ROM)</text>
+
+  <rect x="215" y="298" width="240" height="24" rx="3" fill="white" stroke="#333" stroke-width="1"/>
+  <text x="335" y="314" text-anchor="middle" font-size="10" fill="#111">S_BF_APPLY — write o0/o1 back, advance j</text>
+
+  <rect x="215" y="328" width="240" height="24" rx="3" fill="white" stroke="#333" stroke-width="1"/>
+  <text x="335" y="344" text-anchor="middle" font-size="10" fill="#111">S_DONE — assert done=1, return to IDLE</text>
+
+  <!-- State arrows -->
+  <defs>
+    <marker id="a" markerWidth="7" markerHeight="5" refX="6" refY="2.5" orient="auto">
+      <polygon points="0 0,7 2.5,0 5" fill="black"/>
+    </marker>
+    <marker id="g" markerWidth="7" markerHeight="5" refX="6" refY="2.5" orient="auto">
+      <polygon points="0 0,7 2.5,0 5" fill="#888"/>
+    </marker>
+  </defs>
+  <line x1="335" y1="142" x2="335" y2="148" stroke="#555" stroke-width="1" marker-end="url(#a)"/>
+  <line x1="335" y1="172" x2="335" y2="178" stroke="#555" stroke-width="1" marker-end="url(#a)"/>
+  <line x1="335" y1="202" x2="335" y2="208" stroke="#555" stroke-width="1" marker-end="url(#a)"/>
+  <line x1="335" y1="232" x2="335" y2="238" stroke="#555" stroke-width="1" marker-end="url(#a)"/>
+  <line x1="335" y1="262" x2="335" y2="268" stroke="#555" stroke-width="1" marker-end="url(#a)"/>
+  <line x1="335" y1="292" x2="335" y2="298" stroke="#555" stroke-width="1" marker-end="url(#a)"/>
+  <line x1="335" y1="322" x2="335" y2="328" stroke="#555" stroke-width="1" marker-end="url(#a)"/>
+
+  <!-- Counters box inside FSM -->
+  <line x1="205" y1="362" x2="470" y2="362" stroke="#eee"/>
+  <text x="335" y="376" text-anchor="middle" font-size="9" font-weight="bold" fill="#333">Counters</text>
+  <text x="215" y="390" font-size="9" fill="#555">stage[AW-1:0]  kbase[AW:0]  j[AW-1:0]  m  hm  step  br_i  tidx</text>
+  <text x="215" y="405" font-size="9" fill="#555">p0_hold[AW-1:0]  p1_hold[AW-1:0]  (held addresses for write-back)</text>
+  <text x="215" y="420" font-size="9" fill="#555">wc_r[TW-1:0]  ws_r[TW-1:0]  (1-cycle delayed twiddle registers)</text>
+  <text x="215" y="435" font-size="9" fill="#555">addr_a  addr_b  din_ar  din_br  din_ai  din_bi  we_a  we_b</text>
+
+  <!-- Left I/O ports of fft_top -->
+  <line x1="0" y1="120" x2="14" y2="120" stroke="black" stroke-width="1.5" marker-end="url(#a)"/>
+  <text x="0" y="117" text-anchor="start" font-size="10" fill="#111">clk</text>
+  <line x1="0" y1="138" x2="14" y2="138" stroke="black" stroke-width="1.5" marker-end="url(#a)"/>
+  <text x="0" y="135" text-anchor="start" font-size="10" fill="#111">rst</text>
+  <line x1="0" y1="156" x2="14" y2="156" stroke="black" stroke-width="1.5" marker-end="url(#a)"/>
+  <text x="0" y="153" text-anchor="start" font-size="10" fill="#111">start</text>
+  <line x1="0" y1="174" x2="14" y2="174" stroke="black" stroke-width="1.5" marker-end="url(#a)"/>
+  <text x="0" y="171" text-anchor="start" font-size="10" fill="#111">rd_addr[AW-1:0]</text>
+
+  <!-- Right output ports of fft_top -->
+  <line x1="494" y1="120" x2="515" y2="120" stroke="black" stroke-width="1.5" marker-end="url(#a)"/>
+  <text x="518" y="124" font-size="10" fill="#111">done</text>
+  <line x1="494" y1="145" x2="515" y2="145" stroke="black" stroke-width="1.5" marker-end="url(#a)"/>
+  <text x="518" y="149" font-size="10" fill="#111">rd_data_r [DW-1:0]</text>
+  <line x1="494" y1="168" x2="515" y2="168" stroke="black" stroke-width="1.5" marker-end="url(#a)"/>
+  <text x="518" y="172" font-size="10" fill="#111">rd_data_i [DW-1:0]</text>
+
+  <!-- Parameter box bottom -->
+  <rect x="14" y="468" width="480" height="44" rx="4" fill="white" stroke="#aaa" stroke-width="1"/>
+  <text x="254" y="482" text-anchor="middle" font-size="10" font-weight="bold" fill="#333">Parameters</text>
+  <text x="254" y="497" text-anchor="middle" font-size="9" fill="#555">DW (data width)  ·  TW (twiddle width)  ·  N=1024  ·  AW=10  ·  COS_FILE  ·  SIN_FILE</text>
+  <text x="254" y="509" text-anchor="middle" font-size="9" fill="#888">Set DW=TW=W to change the entire design to a different bit-width in one step</text>
+</svg>

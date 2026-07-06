@@ -1,0 +1,182 @@
+<svg viewBox="0 0 900 560" xmlns="http://www.w3.org/2000/svg" font-family="Arial, sans-serif" font-size="12">
+  <rect width="900" height="560" fill="white"/>
+
+  <!-- Title -->
+  <text x="450" y="26" text-anchor="middle" font-size="16" font-weight="bold" fill="#111">Fixed-Point Radix-2 DIT FFT — System Overview</text>
+  <text x="450" y="43" text-anchor="middle" font-size="11" fill="#555">N = 1024 · Word length W ∈ {8, 10, 12, 14, 16} bit · Artix-7 xc7k70t</text>
+
+  <defs>
+    <marker id="blk" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto">
+      <polygon points="0 0,8 3,0 6" fill="#111"/>
+    </marker>
+    <marker id="gry" markerWidth="7" markerHeight="5" refX="6" refY="2.5" orient="auto">
+      <polygon points="0 0,7 2.5,0 5" fill="#888"/>
+    </marker>
+  </defs>
+
+  <!-- ══════════════════════════════════════════
+       SOFTWARE SECTION (top half)
+  ═══════════════════════════════════════════════ -->
+  <rect x="16" y="56" width="868" height="190" rx="7" fill="white" stroke="black" stroke-width="2"/>
+  <text x="32" y="74" font-size="12" font-weight="bold" fill="#333">Software — Python (VS Code)</text>
+
+  <!-- Golden Model -->
+  <rect x="36" y="84" width="185" height="145" rx="5" fill="white" stroke="black" stroke-width="2"/>
+  <text x="128" y="102" text-anchor="middle" font-size="11" font-weight="bold" fill="#111">Golden Model</text>
+  <text x="128" y="116" text-anchor="middle" font-size="9" fill="#555">golden_model.py</text>
+  <line x1="46" y1="121" x2="211" y2="121" stroke="#ccc"/>
+  <text x="128" y="135" text-anchor="middle" font-size="9" fill="#555">• Bit-accurate integer FFT</text>
+  <text x="128" y="149" text-anchor="middle" font-size="9" fill="#555">• Twiddle quantization</text>
+  <text x="128" y="163" text-anchor="middle" font-size="9" fill="#555">• Round + ÷2 per stage</text>
+  <text x="128" y="177" text-anchor="middle" font-size="9" fill="#555">• SQNR for 5 signals × 5 widths</text>
+  <text x="128" y="191" text-anchor="middle" font-size="9" fill="#555">• gen_bf_vectors.py</text>
+  <text x="128" y="205" text-anchor="middle" font-size="9" fill="#555">• Produces all .hex files</text>
+  <text x="128" y="219" text-anchor="middle" font-size="9" fill="#888">→ sqnr_results.csv + plots</text>
+
+  <!-- Arrow Golden Model → Test Vectors -->
+  <line x1="221" y1="157" x2="272" y2="157" stroke="#111" stroke-width="1.5" marker-end="url(#blk)"/>
+
+  <!-- Test Vectors -->
+  <rect x="272" y="84" width="175" height="145" rx="5" fill="white" stroke="black" stroke-width="2"/>
+  <text x="359" y="102" text-anchor="middle" font-size="11" font-weight="bold" fill="#111">Test Vectors</text>
+  <line x1="282" y1="108" x2="437" y2="108" stroke="#ccc"/>
+  <text x="359" y="122" text-anchor="middle" font-size="9" fill="#555">• tv_*_bwW_real_hex.txt</text>
+  <text x="359" y="136" text-anchor="middle" font-size="9" fill="#555">• tv_*_bwW_imag_hex.txt</text>
+  <text x="359" y="150" text-anchor="middle" font-size="9" fill="#555">• twiddle_bwW_cos_hex.txt</text>
+  <text x="359" y="164" text-anchor="middle" font-size="9" fill="#555">• twiddle_bwW_sin_hex.txt</text>
+  <text x="359" y="178" text-anchor="middle" font-size="9" fill="#555">• exp_*_bwW_real_hex.txt</text>
+  <text x="359" y="192" text-anchor="middle" font-size="9" fill="#555">• exp_*_bwW_imag_hex.txt</text>
+  <text x="359" y="210" text-anchor="middle" font-size="9" fill="#888">6 signal types × 5 bit-widths</text>
+
+  <!-- Arrow Test Vectors → Trade-off Analysis -->
+  <line x1="447" y1="157" x2="498" y2="157" stroke="#111" stroke-width="1.5" marker-end="url(#blk)"/>
+
+  <!-- Trade-off Analysis -->
+  <rect x="498" y="84" width="185" height="145" rx="5" fill="white" stroke="black" stroke-width="2"/>
+  <text x="590" y="102" text-anchor="middle" font-size="11" font-weight="bold" fill="#111">Trade-off Analysis</text>
+  <text x="590" y="116" text-anchor="middle" font-size="9" fill="#555">plot_resource_tradeoff.py</text>
+  <line x1="508" y1="121" x2="673" y2="121" stroke="#ccc"/>
+  <text x="590" y="135" text-anchor="middle" font-size="9" fill="#555">• Read util_bwW.rpt (Vivado)</text>
+  <text x="590" y="149" text-anchor="middle" font-size="9" fill="#555">• Read sqnr_results.csv</text>
+  <text x="590" y="163" text-anchor="middle" font-size="9" fill="#555">• Plot LUT / FF / DSP / BRAM</text>
+  <text x="590" y="177" text-anchor="middle" font-size="9" fill="#555">• Plot SQNR vs W</text>
+  <text x="590" y="191" text-anchor="middle" font-size="9" fill="#555">• Plot accuracy vs cost curve</text>
+  <text x="590" y="210" text-anchor="middle" font-size="9" fill="#888">→ resource_tradeoff_real.png</text>
+
+  <!-- Arrow Trade-off → Results -->
+  <line x1="683" y1="157" x2="730" y2="157" stroke="#111" stroke-width="1.5" marker-end="url(#blk)"/>
+
+  <!-- Results -->
+  <rect x="730" y="84" width="140" height="145" rx="5" fill="white" stroke="black" stroke-width="2"/>
+  <text x="800" y="102" text-anchor="middle" font-size="11" font-weight="bold" fill="#111">Results</text>
+  <line x1="740" y1="108" x2="860" y2="108" stroke="#ccc"/>
+  <text x="800" y="122" text-anchor="middle" font-size="9" fill="#555">sqnr_results.csv</text>
+  <text x="800" y="136" text-anchor="middle" font-size="9" fill="#555">resource_sqnr_</text>
+  <text x="800" y="149" text-anchor="middle" font-size="9" fill="#555">  summary.csv</text>
+  <text x="800" y="163" text-anchor="middle" font-size="9" fill="#555">sqnr_vs_bitwidth.png</text>
+  <text x="800" y="177" text-anchor="middle" font-size="9" fill="#555">spectrum_comparison.png</text>
+  <text x="800" y="191" text-anchor="middle" font-size="9" fill="#555">noise_floor.png</text>
+  <text x="800" y="205" text-anchor="middle" font-size="9" fill="#555">resource_tradeoff_</text>
+  <text x="800" y="219" text-anchor="middle" font-size="9" fill="#555">  real.png</text>
+
+  <!-- ══════════════════════════════════════════
+       HARDWARE SECTION (bottom half)
+  ═══════════════════════════════════════════════ -->
+  <rect x="16" y="264" width="868" height="278" rx="7" fill="white" stroke="black" stroke-width="2"/>
+  <text x="32" y="282" font-size="12" font-weight="bold" fill="#333">Hardware — Verilog RTL (Vivado 2018.3)</text>
+
+  <!-- fft_top outer box -->
+  <rect x="36" y="292" width="530" height="234" rx="6" fill="white" stroke="black" stroke-width="2"/>
+  <text x="301" y="311" text-anchor="middle" font-size="11" font-weight="bold" fill="#111">fft_top.v  —  Memory-Based FSM Controller</text>
+
+  <!-- tdp_ram_r -->
+  <rect x="52" y="320" width="130" height="50" rx="4" fill="white" stroke="black" stroke-width="1.5"/>
+  <text x="117" y="339" text-anchor="middle" font-size="10" font-weight="bold" fill="#111">u_ram_r : tdp_ram</text>
+  <text x="117" y="353" text-anchor="middle" font-size="9" fill="#555">Real part — 1024×W bit</text>
+  <text x="117" y="365" text-anchor="middle" font-size="9" fill="#888">RAMB18E1</text>
+
+  <!-- tdp_ram_i -->
+  <rect x="52" y="385" width="130" height="50" rx="4" fill="white" stroke="black" stroke-width="1.5"/>
+  <text x="117" y="404" text-anchor="middle" font-size="10" font-weight="bold" fill="#111">u_ram_i : tdp_ram</text>
+  <text x="117" y="418" text-anchor="middle" font-size="9" fill="#555">Imag part — 1024×W bit</text>
+  <text x="117" y="430" text-anchor="middle" font-size="9" fill="#888">RAMB18E1</text>
+
+  <!-- twiddle_rom -->
+  <rect x="52" y="448" width="130" height="50" rx="4" fill="white" stroke="black" stroke-width="1.5"/>
+  <text x="117" y="467" text-anchor="middle" font-size="10" font-weight="bold" fill="#111">twiddle_rom</text>
+  <text x="117" y="481" text-anchor="middle" font-size="9" fill="#555">512×W cos/sin — Q1.(W-1)</text>
+  <text x="117" y="493" text-anchor="middle" font-size="9" fill="#888">RAMB18E1</text>
+
+  <!-- butterfly -->
+  <rect x="230" y="330" width="160" height="100" rx="4" fill="white" stroke="black" stroke-width="1.5"/>
+  <text x="310" y="350" text-anchor="middle" font-size="10" font-weight="bold" fill="#111">u_bf : butterfly</text>
+  <line x1="240" y1="357" x2="380" y2="357" stroke="#eee"/>
+  <text x="310" y="373" text-anchor="middle" font-size="9" fill="#555">complex_mult inside</text>
+  <text x="310" y="387" text-anchor="middle" font-size="9" fill="#555">o0 = (a+t+1)&gt;&gt;1</text>
+  <text x="310" y="401" text-anchor="middle" font-size="9" fill="#555">o1 = (a−t+1)&gt;&gt;1</text>
+  <text x="310" y="415" text-anchor="middle" font-size="9" fill="#888">DSP48E1 (W≥12) / LUT</text>
+
+  <!-- FSM -->
+  <rect x="410" y="320" width="140" height="190" rx="4" fill="white" stroke="black" stroke-width="1.5"/>
+  <text x="480" y="338" text-anchor="middle" font-size="10" font-weight="bold" fill="#111">FSM</text>
+  <line x1="420" y1="343" x2="540" y2="343" stroke="#eee"/>
+  <text x="480" y="358" text-anchor="middle" font-size="9" fill="#555">S_IDLE</text>
+  <text x="480" y="372" text-anchor="middle" font-size="9" fill="#555">S_BR_ISSUE</text>
+  <text x="480" y="386" text-anchor="middle" font-size="9" fill="#555">S_BR_WAIT</text>
+  <text x="480" y="400" text-anchor="middle" font-size="9" fill="#555">S_BR_APPLY</text>
+  <text x="480" y="414" text-anchor="middle" font-size="9" fill="#555">S_BF_ISSUE</text>
+  <text x="480" y="428" text-anchor="middle" font-size="9" fill="#555">S_BF_WAIT</text>
+  <text x="480" y="442" text-anchor="middle" font-size="9" fill="#555">S_BF_APPLY</text>
+  <text x="480" y="456" text-anchor="middle" font-size="9" fill="#555">S_DONE</text>
+  <line x1="420" y1="464" x2="540" y2="464" stroke="#eee"/>
+  <text x="480" y="478" text-anchor="middle" font-size="9" fill="#888">10 stages × N/2</text>
+  <text x="480" y="492" text-anchor="middle" font-size="9" fill="#888">butterflies each</text>
+
+  <!-- Internal arrows -->
+  <line x1="182" y1="345" x2="230" y2="365" stroke="#888" stroke-width="1.2" marker-end="url(#gry)"/>
+  <line x1="182" y1="410" x2="230" y2="390" stroke="#888" stroke-width="1.2" marker-end="url(#gry)"/>
+  <line x1="182" y1="473" x2="230" y2="400" stroke="#888" stroke-width="1.2" marker-end="url(#gry)"/>
+  <line x1="390" y1="380" x2="410" y2="390" stroke="#888" stroke-width="1.2" marker-end="url(#gry)"/>
+
+  <!-- Left I/O ports -->
+  <line x1="0" y1="360" x2="36" y2="360" stroke="#111" stroke-width="1.5" marker-end="url(#blk)"/>
+  <text x="2" y="357" font-size="9" fill="#333">clk, rst, start</text>
+  <line x1="0" y1="390" x2="36" y2="390" stroke="#111" stroke-width="1.5" marker-end="url(#blk)"/>
+  <text x="2" y="387" font-size="9" fill="#333">rd_addr[9:0]</text>
+  <!-- Right I/O ports -->
+  <line x1="566" y1="360" x2="600" y2="360" stroke="#111" stroke-width="1.5" marker-end="url(#blk)"/>
+  <text x="603" y="364" font-size="9" fill="#333">done</text>
+  <line x1="566" y1="385" x2="600" y2="385" stroke="#111" stroke-width="1.5" marker-end="url(#blk)"/>
+  <text x="603" y="389" font-size="9" fill="#333">rd_data_r[W-1:0]</text>
+  <line x1="566" y1="410" x2="600" y2="410" stroke="#111" stroke-width="1.5" marker-end="url(#blk)"/>
+  <text x="603" y="414" font-size="9" fill="#333">rd_data_i[W-1:0]</text>
+
+  <!-- Testbenches -->
+  <rect x="620" y="292" width="248" height="234" rx="6" fill="white" stroke="black" stroke-width="2"/>
+  <text x="744" y="311" text-anchor="middle" font-size="11" font-weight="bold" fill="#111">Testbenches</text>
+
+  <rect x="634" y="320" width="220" height="80" rx="4" fill="white" stroke="black" stroke-width="1.5"/>
+  <text x="744" y="338" text-anchor="middle" font-size="10" font-weight="bold" fill="#111">tb_butterfly.v</text>
+  <line x1="644" y1="344" x2="844" y2="344" stroke="#eee"/>
+  <text x="744" y="358" text-anchor="middle" font-size="9" fill="#555">200 vectors from gen_bf_vectors.py</text>
+  <text x="744" y="372" text-anchor="middle" font-size="9" fill="#555">Compare o0r/i, o1r/i bit-by-bit</text>
+  <text x="744" y="387" text-anchor="middle" font-size="9" font-weight="bold" fill="#2E7D32">✓ PASS: 200/200 bit-exact</text>
+
+  <rect x="634" y="414" width="220" height="100" rx="4" fill="white" stroke="black" stroke-width="1.5"/>
+  <text x="744" y="432" text-anchor="middle" font-size="10" font-weight="bold" fill="#111">tb_fft_top.v</text>
+  <line x1="644" y1="438" x2="844" y2="438" stroke="#eee"/>
+  <text x="744" y="452" text-anchor="middle" font-size="9" fill="#555">Preload RAM via hierarchical ref</text>
+  <text x="744" y="466" text-anchor="middle" font-size="9" fill="#555">5 signals × W=12 &amp; W=16</text>
+  <text x="744" y="480" text-anchor="middle" font-size="9" fill="#555">Compare 1024 bins vs exp*.hex</text>
+  <text x="744" y="497" text-anchor="middle" font-size="9" font-weight="bold" fill="#2E7D32">✓ PASS: 1024/1024 bit-exact</text>
+
+  <!-- Cross arrows: hex files SW→HW and .rpt HW→SW -->
+  <line x1="359" y1="246" x2="359" y2="264" stroke="#888" stroke-width="1.5" stroke-dasharray="5,3" marker-end="url(#gry)"/>
+  <text x="363" y="258" font-size="9" fill="#888">.hex files</text>
+
+  <line x1="700" y1="264" x2="700" y2="246" stroke="#888" stroke-width="1.5" stroke-dasharray="5,3" marker-end="url(#gry)"/>
+  <text x="704" y="258" font-size="9" fill="#888">.rpt files</text>
+
+  <!-- Legend -->
+  <rect x="16" y="546" width="868" height="10" fill="white"/>
+</svg>
