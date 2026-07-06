@@ -327,7 +327,7 @@ Output: `plots/resource_tradeoff_real.png` and `results/resource_sqnr_summary.cs
 
 ## Team
 
-Undergraduate research group (NCKH) — School of Electrical and Electronics Engineering, **FPT University**.
+Undergraduate research group  **FPT University**.
 
 - Hoàng Ngọc Gia Bão
 - Trần Hồ Khánh Tân
