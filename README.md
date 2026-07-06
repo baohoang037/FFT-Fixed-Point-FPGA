@@ -56,13 +56,13 @@ FFT-Fixed-Point-FPGA/
 │   └── resource_tradeoff_real.png
 │
 ├── docs/
-│   ├── fft_block_diagram.svg        # System overview diagram
-│   ├── fft_module_diagram.svg       # RTL hierarchy diagram
-│   ├── module_complex_mult.svg
-│   ├── module_butterfly.svg
-│   ├── module_twiddle_rom.svg
-│   ├── module_tdp_ram.svg
-│   └── module_fft_top.svg
+│   ├── fft_block_diagram.png        # System overview diagram
+│   ├── fft_module_diagram.png       # RTL hierarchy diagram
+│   ├── module_complex_mult.png
+│   ├── module_butterfly.png
+│   ├── module_twiddle_rom.png
+│   ├── module_tdp_ram.png
+│   └── module_fft_top.png
 │
 └── references/
     └── references.md
