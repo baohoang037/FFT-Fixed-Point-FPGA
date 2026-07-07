@@ -328,7 +328,7 @@ Output: `plots/resource_tradeoff_real.png` and `results/resource_sqnr_summary.cs
 ## Authors
 
 | Full Name          | Student ID | Institution    |
-
+|---|---|---|
 | Hoàng Ngọc Gia Bão | SE203238   | FPT University |
 | Trần Hồ Khánh Tân  | SE203740   | FPT University |
 | Nguyễn Quế Vũ      | SE204290   | FPT University |
