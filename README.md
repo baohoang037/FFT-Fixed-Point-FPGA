@@ -325,12 +325,12 @@ Output: `plots/resource_tradeoff_real.png` and `results/resource_sqnr_summary.cs
 
 ---
 
-## Team
+## Authors
 
-Undergraduate research group  **FPT University**.
+| Full Name          | Student ID | Institution    |
 
-- Hoàng Ngọc Gia Bão
-- Trần Hồ Khánh Tân
-- Nguyễn Trọng Hùng
-- Nguyễn Quế Vũ
-- Nguyễn Việt Anh
+| Hoàng Ngọc Gia Bão | SE203238   | FPT University |
+| Trần Hồ Khánh Tân  | SE203740   | FPT University |
+| Nguyễn Quế Vũ      | SE204290   | FPT University |
+| Nguyễn Trọng Hùng  | SE204352   | FPT University |
+| Nguyễn Việt Anh    | SE204364   | FPT University |
