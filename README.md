@@ -5,7 +5,25 @@
 A research project carried out as part of the NCKH undergraduate research program at FPT University. The system implements a 1024-point fixed-point Radix-2 Decimation-in-Time (DIT) FFT whose data word length can be configured to 8, 10, 12, 14, or 16 bits. The core question being investigated is how much signal quality (measured by SQNR) is lost as the word length is reduced, and how much FPGA hardware area (LUT, FF, DSP, Block RAM) is saved in return.
 
 ---
+## Table of Contents
 
+- [System Overview](#system-overview)
+- [Project File Tree](#project-file-tree)
+- [RTL Module Descriptions](#rtl-module-descriptions)
+  - [complex_mult.v](#complex_multv)
+  - [butterfly.v](#butterflyv)
+  - [twiddle_rom.v](#twiddle_romv)
+  - [tdp_ram.v](#tdp_ramv-instantiated-as-u_ram_r-and-u_ram_i)
+  - [fft_top.v](#fft_topv)
+- [Key Results](#key-results)
+  - [SQNR vs Word Length — N = 1024](#sqnr vs-word-length--n--1024)
+  - [Hardware Resources](#hardware-resources--artix-7-xc7k70tfbv676-1-vivado-20183)
+- [How to Reproduce](#how-to-reproduce)
+- [Design Parameters](#design-parameters)
+- [Verification Summary](#verification-summary)
+- [Authors](#authors)
+
+---
 ## System Overview
 
 ![System Block Diagram](docs/fft_block_diagram.png)
