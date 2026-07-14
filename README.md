@@ -213,12 +213,14 @@ Top-level module that wires together all sub-modules and drives a multi-state FS
 
 | Signal type | W=8 | W=10 | W=12 | W=14 | W=16 |
 |---|---|---|---|---|---|
-| Single tone | 10.2 dB | 22.1 dB | 34.4 dB | 46.3 dB | 58.4 dB |
-| Multi tone | 7.2 dB | 19.8 dB | 31.2 dB | 43.5 dB | 55.4 dB |
-| Full-scale DC | 15.3 dB | 27.3 dB | 39.4 dB | 51.4 dB | 63.4 dB |
-| Random noise (avg) | 2.5 dB | 14.5 dB | 26.5 dB | 38.5 dB | 50.6 dB |
+| Single tone | 11.0 dB | 23.1 dB | 35.2 dB | 47.2 dB | 59.2 dB |
+| Multi tone | 8.4 dB | 19.9 dB | 32.7 dB | 44.3 dB | 56.5 dB |
+| Full-scale DC | 16.2 dB | 28.2 dB | 40.3 dB | 52.3 dB | 64.3 dB |
+| Random noise (avg) | 2.7 dB | 14.7 dB | 26.8 dB | 38.7 dB | 50.4 dB |
 
 SQNR improves by roughly 6 dB per added bit and sits about 40 dB below the input-quantization-only bound — the gap is the processing noise that accumulates across the 10 butterfly stages.
+
+> **Note on `golden_model.py`:** an earlier version of this script only quantized the input sample and then called a floating-point FFT, which is exactly the "naive-model pitfall" the paper warns against — it ignored twiddle quantization, post-multiply rounding, and per-stage scaling noise, and it also computed the noise floor by averaging dB values directly (mathematically invalid — biased low by near-zero bins). The current version runs the entire FFT in integer arithmetic (see `Algorithm 1` in the paper) and computes noise floor as `10*log10(mean linear power)`. If you see numbers elsewhere that don't match the table above (e.g. an older `sqnr_results.csv`), regenerate it by re-running `golden_model.py`.
 
 ### Hardware Resources — Artix-7 xc7k70tfbv676-1, Vivado 2018.3
 
