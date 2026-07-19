@@ -12,8 +12,8 @@ module tb_butterfly;
     wire signed [DW-1:0] o0r, o0i, o1r, o1i;
 
     // golden fields read from file
-    reg  [DW-1:0] g_ur,g_ui,g_br,g_bi, g_o0r,g_o0i,g_o1r,g_o1i;
-    reg  [TW-1:0] g_cos,g_sin;
+    reg  [DW-1:0]  g_o0r,g_o0i,g_o1r,g_o1i;
+    
     reg  [DW-1:0] mem [0:NVEC*10-1];
 
     integer i, base, errors;
